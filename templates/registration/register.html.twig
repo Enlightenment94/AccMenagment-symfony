@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <div class="w-64 mx-auto rounded-md bg-white p-3 my-10">
+        <h1 class="text-xl flex items-center justify-center text-sm uppercase">REGISTER ACCOUNT</h1>
+
+        {{ form_errors(registrationForm) }}
+
+        {{ form_start(registrationForm) }}
+
+        <div class="my-4">
+            {{ form_row(registrationForm.email, {
+                'attr': {
+                    'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
+                    'placeholder': 'Email address'
+                }
+            }) }}
+        </div>
+
+        <div class="my-4">
+            {{ form_row(registrationForm.plainPassword, {
+                'label_html':{
+                    'class': 'block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
+                },
+                'attr':{
+                    'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
+                    'placeholder': 'Password',
+                    'value': 'abcdabcd'
+                }
+            }) }}
+        </div>
+
+        <div class="my-4">
+            <label class="inline-flex items-center">
+                {{ form_widget(registrationForm.agreeTerms, {
+                    'attr': {
+                        'class': 'form-checkbox h-5 w-5 text-gray-600',
+                    }
+                }) }}
+                <span class="ml-2 text-gray-700 text-sm">I agree to the <a href="#" class="text-indigo-600">terms and conditions</a></span>
+            </label>
+        </div>
+
+        <button type="submit" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            Register
+        </button>
+
+        {{ form_end(registrationForm) }}
+
+    </div>
+{% endblock %}

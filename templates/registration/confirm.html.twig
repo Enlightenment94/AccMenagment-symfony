@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+</head>
+<body class="bg-indigo-600">
+<div class="w-64 mx-auto rounded-md bg-white p-3 my-10">
+    <h1 class="text-xs5 flex items-center justify-center text-sm uppercase">Confirmation account</h1>
+    <h1 class="break-words">{{ path }}</h1>
+    <form action="{{ path('post.checkConfirm') }}" method="GET">
+        <div>
+            <input class="text-xs my-3 p-1 bg-gray-200 w-full" type="hidden" name="path" placeholder="path" value="{{ path }}" required/>
+        </div>
+        <div>
+            <input class="text-xs my-3 p-1 bg-gray-200 w-full" type="text" name="code" placeholder="code" value="" required/>
+        </div>
+        <div class="flex items-center justify-center">
+            <input class="p-1 text-sm w-full text-white bg-indigo-600 cursor-pointer uppercase" type="submit" value="confirm" />
+        </div>
+    </form>
+</div>
+</body>
+</html>
