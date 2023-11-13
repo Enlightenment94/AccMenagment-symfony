@@ -1,3 +1,12 @@
+.bigger {
+    transition: transform 0.3s;
+}
+
+.bigger:hover {
+    transform: scale(2.1);
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+

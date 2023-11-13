@@ -85,12 +85,12 @@ class __TwigTemplate_64402b4b64e15ad7b8e649c40deba1b7 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
         // line 6
-        echo "    <h1>dashboard.html.twig</h1>
-    <a href=\"";
+        echo "    <div class=\"fixed left-0 top-0 h-full w-64 bg-gray-800 text-center p-10\">
+        <a class='text-white' href=\"";
         // line 7
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_logout");
         echo "\">logout</a>
-
+    </div>
 ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -122,9 +122,9 @@ class __TwigTemplate_64402b4b64e15ad7b8e649c40deba1b7 extends Template
 {% block title %}Logowanie{% endblock %}
 
 {% block body %}
-    <h1>dashboard.html.twig</h1>
-    <a href=\"{{ path(\"app_logout\") }}\">logout</a>
-
+    <div class=\"fixed left-0 top-0 h-full w-64 bg-gray-800 text-center p-10\">
+        <a class='text-white' href=\"{{ path(\"app_logout\") }}\">logout</a>
+    </div>
 {% endblock %}", "dashboard/dashboard.html.twig", "/opt/lampp/htdocs/www/symfony/templates/dashboard/dashboard.html.twig");
     }
 }

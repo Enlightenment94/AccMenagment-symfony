@@ -384,6 +384,7 @@
       <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Security\EmailVerifier" class="App\Security\EmailVerifier" autowire="true" autoconfigure="true"/>
+    <service id="App\Service\CaptchaService" class="App\Service\CaptchaService" autowire="true" autoconfigure="true"/>
     <service id="App\Service\MMyMailerService" class="App\Service\MMyMailerService" autowire="true" autoconfigure="true">
       <argument type="service" id="mailer.mailer"/>
     </service>

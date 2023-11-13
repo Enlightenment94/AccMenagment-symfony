@@ -3,14 +3,18 @@
 namespace App\Form;
 
 use App\Entity\User;
+use SebastianBergmann\CodeCoverage\Report\Text;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+
+use Symfony\Component\Validator\Constraints\Regex;
 
 class RegistrationFormType extends AbstractType
 {
@@ -40,6 +44,20 @@ class RegistrationFormType extends AbstractType
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
+                    ]),
+                ],
+            ])
+            ->add('captcha', TextType::class, [
+                'mapped' => false,
+                'constraints' => [
+                    new Regex([
+                        'pattern' => '/^[a-zA-Z0-9]{1,8}$/',
+                        'message' => 'Your captcha should contain only letters and numbers and be between 1 and 8 characters',
+                    ]),
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'max' => 8,
                     ]),
                 ],
             ])

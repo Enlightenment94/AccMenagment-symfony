@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Repository\TokenRepository;
 use App\Repository\UserRepository;
+use App\Service\CaptchaService;
 use App\Service\MMyMailerService;
 use Doctrine\ORM\EntityManagerInterface;
+use MongoDB\Driver\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -35,30 +37,42 @@ class RecoverController extends AbstractController
     }
 
     #[Route('/recover', name: 'app_recover')]
-    public function recover(): Response
+    public function recover(SessionInterface $session): Response
     {
-        return $this->render('registration/recover.html.twig');
+        $captchaService = new CaptchaService();
+        $captcha = $captchaService->captcha2();
+        $session->set('captcha', $captcha['captcha']);
+
+        return $this->render('registration/recover.html.twig', [
+            'captcha' => $captcha['img'],
+        ]);
     }
 
     #[Route('/sendToken', methods: 'POST', name: 'app_sendToken')]
     public function sendToken(UserRepository $userRepository, TokenRepository $tokenRepository, Request $request, MailerInterface $mailer,  SessionInterface $session): Response
     {
-        $reciver = $request->get('email');
-        $user = $userRepository->findByMail($reciver);
-        if(count($user) > 0){
-            //$user['user_id'];
-            $mailer = new MMyMailerService($mailer, "enlightenmentsoftware.xaa.pl", 587, "enlightenment@enlightenmentsoftware.xaa.pl", "{OIffxMW8i.m");
-            $token = bin2hex(random_bytes(64));
-            $tokenRepository->createToken($token, $user[0]->getId());
+        $captcha = $request->get('captcha');
+        $captchaSession = $session->get('captcha');
+        if($captcha == $captchaSession) {
+            $reciver = $request->get('email');
+            $user = $userRepository->findByMail($reciver);
+            if (count($user) > 0) {
+                //$user['user_id'];
+                $mailer = new MMyMailerService($mailer, "enlightenmentsoftware.xaa.pl", 587, "enlightenment@enlightenmentsoftware.xaa.pl", "{OIffxMW8i.m");
+                $token = bin2hex(random_bytes(64));
+                $tokenRepository->createToken($token, $user[0]->getId());
 
-            $request = $this->requestStack->getCurrentRequest();
-            $baseUrl = $request->getSchemeAndHttpHost() . $request->getBasePath();
-            $url = $baseUrl . '/reset/' . $token;
+                $request = $this->requestStack->getCurrentRequest();
+                $baseUrl = $request->getSchemeAndHttpHost() . $request->getBasePath();
+                $url = $baseUrl . '/reset/' . $token;
 
-            $mailer->tokenMail($reciver, $url);
-            return new Response("Token is send");
+                $mailer->tokenMail($reciver, $url);
+                return new Response("Token is send");
+            } else {
+                return new Response("Token not send send");
+            }
         }else{
-            return new Response("Token not send send");
+            return new Response("Wrong captcha");
         }
     }
 

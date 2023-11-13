@@ -60,10 +60,38 @@ class __TwigTemplate_5be0ec6a8cf97453fd0f9ea8bf03020a extends Template
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_sendToken");
         echo "\" method=\"POST\">
         <div class=\"my-2\">
-            <input class=\"text-xs my-3 p-1 bg-gray-200 w-full\" type=\"text\" name=\"email\" placeholder=\"email\" value=\"\" required/>
+            <input class=\"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-full\" type=\"text\" name=\"email\" placeholder=\"email\" value=\"\" required/>
         </div>
+
+        <div class=\"my-2\">
+            <input class=\"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-full\" type=\"text\" name=\"captcha\" placeholder=\"captcha\" value=\"\" required/>
+        </div>
+
+        <div class=\"my-2\">
+            <style>
+                .bigger {
+                    transition: transform 0.3s;
+                }
+
+                .bigger:hover {
+                    transform: scale(2.1);
+                }
+            </style>
+            <img class='bigger' src=\"data:image/png;base64, ";
+        // line 33
+        echo twig_escape_filter($this->env, (isset($context["captcha"]) || array_key_exists("captcha", $context) ? $context["captcha"] : (function () { throw new RuntimeError('Variable "captcha" does not exist.', 33, $this->source); })()), "html", null, true);
+        echo "\" alt=\"Obrazek PNG\">
+        </div>
+
         <div class=\"flex items-center justify-center\">
-            <input class=\"p-1 text-sm w-full text-white bg-indigo-600 cursor-pointer uppercase\" type=\"submit\" value=\"reset\" />
+            <input class=\"bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full\" type=\"submit\" value=\"Reset\" />
+        </div>
+
+        <div class=\"text-right mt-2\">
+            <a class=\"underline text-indigo-500 hover:text-indigo-700\" href=\"";
+        // line 41
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
+        echo "\">back</a>
         </div>
     </form>
 </div>
@@ -112,7 +140,7 @@ class __TwigTemplate_5be0ec6a8cf97453fd0f9ea8bf03020a extends Template
 
     public function getDebugInfo()
     {
-        return array (  91 => 8,  81 => 7,  60 => 14,  54 => 10,  52 => 7,  44 => 1,);
+        return array (  119 => 8,  109 => 7,  93 => 41,  82 => 33,  60 => 14,  54 => 10,  52 => 7,  44 => 1,);
     }
 
     public function getSourceContext()
@@ -132,10 +160,32 @@ class __TwigTemplate_5be0ec6a8cf97453fd0f9ea8bf03020a extends Template
     <h1 class=\"text-xs5 flex items-center justify-center text-sm uppercase\">Reset password</h1>
     <form action=\"{{ path('app_sendToken') }}\" method=\"POST\">
         <div class=\"my-2\">
-            <input class=\"text-xs my-3 p-1 bg-gray-200 w-full\" type=\"text\" name=\"email\" placeholder=\"email\" value=\"\" required/>
+            <input class=\"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-full\" type=\"text\" name=\"email\" placeholder=\"email\" value=\"\" required/>
         </div>
+
+        <div class=\"my-2\">
+            <input class=\"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-full\" type=\"text\" name=\"captcha\" placeholder=\"captcha\" value=\"\" required/>
+        </div>
+
+        <div class=\"my-2\">
+            <style>
+                .bigger {
+                    transition: transform 0.3s;
+                }
+
+                .bigger:hover {
+                    transform: scale(2.1);
+                }
+            </style>
+            <img class='bigger' src=\"data:image/png;base64, {{ captcha }}\" alt=\"Obrazek PNG\">
+        </div>
+
         <div class=\"flex items-center justify-center\">
-            <input class=\"p-1 text-sm w-full text-white bg-indigo-600 cursor-pointer uppercase\" type=\"submit\" value=\"reset\" />
+            <input class=\"bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full\" type=\"submit\" value=\"Reset\" />
+        </div>
+
+        <div class=\"text-right mt-2\">
+            <a class=\"underline text-indigo-500 hover:text-indigo-700\" href=\"{{ path('app_login') }}\">back</a>
         </div>
     </form>
 </div>

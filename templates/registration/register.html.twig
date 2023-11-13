@@ -14,7 +14,8 @@
             {{ form_row(registrationForm.email, {
                 'attr': {
                     'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
-                    'placeholder': 'Email address'
+                    'placeholder': 'Email address',
+                    'value': 'kamil@stroniarz.pl'
                 }
             }) }}
         </div>
@@ -33,6 +34,34 @@
         </div>
 
         <div class="my-4">
+            {{ form_row(registrationForm.captcha, {
+                'label_html':{
+                    'class': 'block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2'
+                },
+                'attr':{
+                    'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
+                    'placeholder': 'captcha',
+                    'value': ''
+                }
+            }) }}
+        </div>
+
+        <div class="my-2">
+             {{ captcha_ss }}
+             {{ captcha_err }}
+            <style>
+                .bigger {
+                    transition: transform 0.3s;
+                }
+
+                .bigger:hover {
+                    transform: scale(2.1);
+                }
+            </style>
+            <img class='bigger' src="data:image/png;base64, {{ captcha }}" alt="Obrazek PNG">
+        </div>
+
+        <div class="my-4">
             <label class="inline-flex items-center">
                 {{ form_widget(registrationForm.agreeTerms, {
                     'attr': {
@@ -47,6 +76,9 @@
             Register
         </button>
 
+        <div class="text-right">
+            <a class="underline text-indigo-500 hover:text-indigo-700" href="{{ path('app_login') }}">back</a>
+        </div>
         {{ form_end(registrationForm) }}
 
     </div>
