@@ -24,18 +24,15 @@ class MMyMailerService
 
     public function testEmailLogin(string $host, int $port, string $username, string $password)
     {
+        $transport = new \Swift_SmtpTransport($host, $port);
+        $transport->setUsername($username);
+        $transport->setPassword($password);
+        $swiftMailer = new \Swift_Mailer($transport);
 
-    // Tworzenie instancji Swift Mailera
-    $transport = new \Swift_SmtpTransport($host, $port);
-    $transport->setUsername($username);
-    $transport->setPassword($password);
-    $swiftMailer = new \Swift_Mailer($transport);
-
-    // Tworzenie testowej wiadomości e-mail
-    $message = (new \Swift_Message('Testowa wiadomość'))
-    ->setFrom($username)
-    ->setTo($username)
-    ->setBody('TEST MESSAGE WIN !!!!.');
+        $message = (new \Swift_Message('Testowa wiadomość'))
+        ->setFrom($username)
+        ->setTo($username)
+        ->setBody('TEST MESSAGE WIN !!!!.');
 
         try {
             $swiftMailer->send($message);
@@ -44,6 +41,32 @@ class MMyMailerService
             return false;
         }
     }
+
+    public function emailTestTo(string $host, int $port, string $username, string $password, string $to): bool
+    {
+        
+        $transport = new \Swift_SmtpTransport($host, $port);
+        $transport->setUsername($username);
+        $transport->setPassword($password);
+
+        
+        $swiftMailer = new \Swift_Mailer($transport);
+
+        
+        $message = (new \Swift_Message('Test mail'))
+            ->setFrom([$username => 'Sender Name']) 
+            ->setTo([$to => 'Recipient Name']) 
+            ->setBody('<b>HTML</b>', 'text/html');
+
+        try {
+            $swiftMailer->send($message);
+            return true; 
+        } catch (\Swift_TransportException $e) {
+            error_log('Błąd wysyłania wiadomości: ' . $e->getMessage());
+            return false; 
+        }
+    }
+
 
     public function verifyMail(string $reciver, string $code)
     {

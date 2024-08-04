@@ -10,6 +10,7 @@
 </head>
 <body class="bg-indigo-600">
 <div class="w-64 mx-auto rounded-md bg-white p-3 my-10">
+
     <h1 class="text-xs5 flex items-center justify-center text-sm uppercase">Confirmation account</h1>
     <h1 class="break-words">{{ path }}</h1>
     <form action="{{ path('post.checkConfirm') }}" method="GET">
@@ -23,6 +24,14 @@
             <input class="p-1 text-sm w-full text-white bg-indigo-600 cursor-pointer uppercase" type="submit" value="confirm" />
         </div>
     </form>
+
+    <div class="text-xs5 p-1 flex items-center justify-center text-sm uppercase">
+        <form action="{{ path('resend_confirmation') }}" method="GET">
+            <input type="hidden" name="email" value="{{ user.email }}" />
+            <input class="cursor-pointer" type="submit" value="Resend Confirmation" />
+        </form>
+    </div>
+
 </div>
 </body>
 </html>

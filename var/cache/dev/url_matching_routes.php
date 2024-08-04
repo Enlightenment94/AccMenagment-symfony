@@ -28,6 +28,7 @@ return [
         '/sendToken' => [[['_route' => 'app_sendToken', '_controller' => 'App\\Controller\\RecoverController::sendToken'], null, ['POST' => 0], null, false, false, null]],
         '/reset-password' => [[['_route' => 'app_reset_password', '_controller' => 'App\\Controller\\RecoverController::resetPasswordConfirm'], null, ['POST' => 0], null, false, false, null]],
         '/register' => [[['_route' => 'app_register', '_controller' => 'App\\Controller\\RegistrationController::register'], null, null, null, false, false, null]],
+        '/resend-confirmation' => [[['_route' => 'resend_confirmation', '_controller' => 'App\\Controller\\RegistrationController::resendConfirmation'], null, null, null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'

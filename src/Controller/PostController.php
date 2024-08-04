@@ -20,6 +20,8 @@ use App\Service\MMyMailerService;
 
 use Symfony\Component\HttpFoundation\Request;
 
+require_once(__DIR__ . "/../../config/config.php");
+
 class PostController extends AbstractController
 {
     #[Route('/post', name: 'app_post')]
@@ -54,16 +56,22 @@ class PostController extends AbstractController
     {
         /*
         $email = (new Email())
-            ->from('enlightenment@enlightenmentsoftware.xaa.pl')
-            ->to('pisajad585@jucatyo.com')
+            ->from('enlightenment@enlightenment.xaa.pl')
+            ->to('enlightenmentsoftware@gmail.com')
             ->subject("Test mail")
             ->html("<b>HTML</b>");
 
-        $value = $mailer->send($email);*/
+        $valueSend = $mailer->send($email);
 
         $mailer = new MMyMailerService($mailer);
-        $value = $mailer->testEmailLogin("enlightenmentsoftware.xaa.pl", 587, "enlightenment@enlightenmentsoftware.xaa.pl", "{OIffxMW8i.m");
-
+        $value = $mailer->testEmailLogin("enlightenment.xaa.pl", 587, "enlightenment2@enlightenment.xaa.pl", 'CWX,$l$iYC,x');
+        */
+        
+        $to = "enlightenmentsoftware@gmail.com";
+        $mailer = new MMyMailerService($mailer);
+        //$value = $mailer->emailTestTo("enlightenment.xaa.pl", 587, "enlightenment2@enlightenment.xaa.pl", 'CWX,$l$iYC,x', $to);        
+        //$value = $mailer->emailTestTo("enlightenment.xaa.pl", 587, "enlightenment2@enlightenment.xaa.pl", 'CWX,$l$iYC,x', $to);        
+        $value = $mailer->emailTestTo(MAIL_HOST , 587, MAIL_USERNAME ."@" . MAIL_HOST, MAIL_PASSWORD, $to);
         return new Response($value . "SEND mail");
     }
 

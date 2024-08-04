@@ -7,7 +7,11 @@ use App\Entity\Confirm;
 use App\Service\MMyMailerService;
 use App\Service\CaptchaService;
 
+
 use App\Form\RegistrationFormType;
+use App\Repository\ConfirmRepository;
+use App\Repository\UserRepository;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,6 +20,8 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+
+require_once(__DIR__ . "/../../config/config.php");
 
 class RegistrationController extends AbstractController
 {
@@ -49,18 +55,18 @@ class RegistrationController extends AbstractController
                 $randomString = bin2hex(random_bytes(64));
                 $confirm->setCode($randomNumber);
                 $confirm->setPath($randomString);
+                $confirm->setTime(new \DateTime());
 
                 $entityManager->persist($confirm);
                 $entityManager->flush();
 
                 $reciver = $user->getEmail();
-                $mailer = new MMyMailerService($mailer, "enlightenmentsoftware.xaa.pl", 587, "enlightenment@enlightenmentsoftware.xaa.pl", "{OIffxMW8i.m");
+                $mailer = new MMyMailerService($mailer, MAIL_HOST, 587, MAIL_USERNAME ."@" . MAIL_HOST, MAIL_PASSWORD);
                 $mailer->verifyMail($reciver, $randomNumber);
-                // do anything else you need here, like send an email
 
-                //return $this->redirectToRoute('post.confirm');
                 return $this->render('registration/confirm.html.twig', [
                     'path' => $randomString,
+                    'user' => $user, 
                 ]);
             }else{
                 $captchaService = new CaptchaService();
@@ -72,6 +78,7 @@ class RegistrationController extends AbstractController
                     'captcha' => $captcha['img'],
                     'captcha_ss' => "",
                     'captcha_err' => "",
+                    'captcha_code' => $captcha['captcha'],
                 ]);
             }
         }
@@ -85,6 +92,51 @@ class RegistrationController extends AbstractController
             'captcha' => $captcha['img'],
             'captcha_err' => '',
             'captcha_ss' => "",
+            'captcha_code' => $captcha['captcha'],
+        ]);
+    }
+
+    #[Route('/resend-confirmation', name: 'resend_confirmation')]
+    public function resendConfirmation(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer, UserRepository $userRepository, ConfirmRepository $confirmRepository): Response
+    {
+        $email = $request->query->get('email');
+        $user = $userRepository->findByMail($email);
+
+        //return new Response("<pre>" . var_dump($user) . "</pre>");        
+
+        if (!$user) {
+            return new Response('User not found', 404);
+        }
+
+        $confirm = $confirmRepository->findById($user[0]->getId());
+
+        $confirmRepository->deleteByUserId($user[0]->getId());
+
+        if (!$confirm) {
+            $confirm = new Confirm();
+            $confirm->setUserId($user[0]->getId());
+
+            $randomNumber = str_pad(rand(0, pow(10, 10) - 1), 10, '0', STR_PAD_LEFT);
+            $randomString = bin2hex(random_bytes(64));
+            $confirm->setCode($randomNumber);
+            $confirm->setPath($randomString);
+            $confirm->setTime(new \DateTime());
+
+
+
+            $entityManager->persist($confirm);
+            $entityManager->flush();
+        } else {
+            $randomNumber = $confirm->getCode();
+            $randomString = $confirm->getPath();
+        }
+
+        $mailerService = new MMyMailerService($mailer, MAIL_HOST, 587, MAIL_USERNAME . "@" . MAIL_HOST, MAIL_PASSWORD);
+        $mailerService->verifyMail($user[0]->getEmail(), $randomNumber);
+
+        return $this->render('registration/confirm.html.twig', [
+            'path' => $randomString,
+            'user' => $user[0], 
         ]);
     }
 }

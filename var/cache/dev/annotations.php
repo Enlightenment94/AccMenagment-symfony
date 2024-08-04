@@ -100,6 +100,8 @@ return [[
 '[C]App%5CController%5CRegistrationController' => 1,
 'App%5CController%5CRegistrationController%23register' => 0,
 '[C]App%5CController%5CRegistrationController%23register' => 1,
+'App%5CController%5CRegistrationController%23resendConfirmation' => 0,
+'[C]App%5CController%5CRegistrationController%23resendConfirmation' => 1,
 'App%5CEntity%5CConfirm' => 0,
 '[C]App%5CEntity%5CConfirm' => 1,
 'App%5CEntity%5CConfirm%23getId' => 0,
@@ -118,6 +120,10 @@ return [[
 '[C]App%5CEntity%5CConfirm%23getPath' => 1,
 'App%5CEntity%5CConfirm%23setPath' => 0,
 '[C]App%5CEntity%5CConfirm%23setPath' => 1,
+'App%5CEntity%5CConfirm%23setTime' => 0,
+'[C]App%5CEntity%5CConfirm%23setTime' => 1,
+'App%5CEntity%5CConfirm%23getTime' => 0,
+'[C]App%5CEntity%5CConfirm%23getTime' => 1,
 'App%5CEntity%5CConfirm%24id' => 0,
 '[C]App%5CEntity%5CConfirm%24id' => 1,
 'App%5CEntity%5CConfirm%24userId' => 0,
@@ -126,6 +132,8 @@ return [[
 '[C]App%5CEntity%5CConfirm%24code' => 1,
 'App%5CEntity%5CConfirm%24path' => 0,
 '[C]App%5CEntity%5CConfirm%24path' => 1,
+'App%5CEntity%5CConfirm%24time' => 0,
+'[C]App%5CEntity%5CConfirm%24time' => 1,
 'App%5CEntity%5CToken' => 0,
 '[C]App%5CEntity%5CToken' => 1,
 'App%5CEntity%5CToken%23getId' => 0,
@@ -736,6 +744,6 @@ return [[
 ], [
 
 0 => [],
-1 => 1699650712,
+1 => 1722757541,
 
 ]];

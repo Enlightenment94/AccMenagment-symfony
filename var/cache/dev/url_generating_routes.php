@@ -31,4 +31,5 @@ return [
     'app_reset' => [['token'], ['_controller' => 'App\\Controller\\RecoverController::resetPassword'], [], [['variable', '/', '[^/]++', 'token', true], ['text', '/reset']], [], [], []],
     'app_reset_password' => [[], ['_controller' => 'App\\Controller\\RecoverController::resetPasswordConfirm'], [], [['text', '/reset-password']], [], [], []],
     'app_register' => [[], ['_controller' => 'App\\Controller\\RegistrationController::register'], [], [['text', '/register']], [], [], []],
+    'resend_confirmation' => [[], ['_controller' => 'App\\Controller\\RegistrationController::resendConfirmation'], [], [['text', '/resend-confirmation']], [], [], []],
 ];

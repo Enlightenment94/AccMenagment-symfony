@@ -1,0 +1,27 @@
+#Stworzenie nowego projektu
+composer create-project symfony/skeleton my_project
+
+###Migracja Encji do bazy danych
+	composer require doctrine/doctrine-migrations-bundle
+#generowanie migracji
+	php bin/console make:migration
+#zastosowanie zmian
+	php bin/console doctrine:migrations:migrate
+#sprawdzenie stanu bazy
+	php bin/console doctrine:schema:validate
+#clean migracji
+	php bin/console doctrine:schema:update --dump-sql
+
+"Jeśli migracja nie przechodzi całą spróbuj wykonać ją ręcznie"
+
+
+#rollback
+php bin/console doctrine:migrations:migrate prev
+
+#genrowanie nowej encji
+php bin/console make:entity
+
+#czyszczenie cache
+php bin/console cache:clear
+
+

@@ -21,6 +21,9 @@ class Confirm
     #[ORM\Column(type: 'string', length: 255)]
     private string $path;
 
+    #[ORM\Column(type: 'datetime')]
+    private ?\DateTimeInterface $time;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -63,5 +66,16 @@ class Confirm
         $this->path = $path;
 
         return $this;
+    }
+
+    public function setTime(\DateTimeInterface $time): self
+    {
+        $this->time = $time;
+        return $this;
+    }
+
+    public function getTime(): ?\DateTimeInterface
+    {
+        return $this->time;
     }
 }

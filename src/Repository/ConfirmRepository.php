@@ -40,6 +40,7 @@ class ConfirmRepository extends ServiceEntityRepository
         $confirm->setUserId($userId);
         $confirm->setCode($code);
         $confirm->setPath($path);
+        $time = new \DateTime();
         $em->persist($confirm);
         $em->flush();
 

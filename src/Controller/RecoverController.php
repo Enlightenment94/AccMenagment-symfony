@@ -26,6 +26,8 @@ use App\Entity\User;
 
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+require_once(__DIR__ . "/../../config/config.php");
+
 class RecoverController extends AbstractController
 {
     private $requestStack;
@@ -58,7 +60,8 @@ class RecoverController extends AbstractController
             $user = $userRepository->findByMail($reciver);
             if (count($user) > 0) {
                 //$user['user_id'];
-                $mailer = new MMyMailerService($mailer, "enlightenmentsoftware.xaa.pl", 587, "enlightenment@enlightenmentsoftware.xaa.pl", "{OIffxMW8i.m");
+                //$mailer = new MMyMailerService($mailer, "enlightenment2.xaa.pl", 587, "enlightenment2@enlightenment", "CWX,$l$iYC,x");
+                $mailer = new MMyMailerService($mailer, MAIL_HOST , 587, MAIL_USERNAME ."@" . MAIL_HOST, MAIL_PASSWORD);
                 $token = bin2hex(random_bytes(64));
                 $tokenRepository->createToken($token, $user[0]->getId());
 

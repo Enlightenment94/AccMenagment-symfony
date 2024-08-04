@@ -573,6 +573,7 @@ class ComposerStaticInitf2f3ea2b52dc1dc543fcff270d9d2335
         'App\\Repository\\TokenRepository' => __DIR__ . '/../..' . '/src/Repository/TokenRepository.php',
         'App\\Repository\\UserRepository' => __DIR__ . '/../..' . '/src/Repository/UserRepository.php',
         'App\\Security\\EmailVerifier' => __DIR__ . '/../..' . '/src/Security/EmailVerifier.php',
+        'App\\Service\\CaptchaService' => __DIR__ . '/../..' . '/src/Service/CaptchaService.php',
         'App\\Service\\MMyMailerService' => __DIR__ . '/../..' . '/src/Service/MMyMailerService.php',
         'Collator' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/Resources/stubs/Collator.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
